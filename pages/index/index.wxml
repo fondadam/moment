@@ -1,0 +1,13 @@
+<!--pages/index/index.wxml-->
+<view wx:for="{{tz}}">
+  {{item}}
+</view>
+<view class="section" hidden="{{add ? false : true}}">
+  <view class="section__title">选择时区</view>
+  <picker bindchange="onSelect" value="{{index}}" range="{{timezone}}">
+    <view class="picker">
+      当前选择：{{timezone[index]}}
+    </view>
+  </picker>
+</view>
+<button type="primary" size="mini" bindtap="onClickAdd">{{add ? "确认" : "添加"}}</button>

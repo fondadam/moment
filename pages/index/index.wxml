@@ -1,6 +1,16 @@
 <!--pages/index/index.wxml-->
-<view wx:for="{{tz}}">
-  {{item}}
+<view wx:for="{{clocks}}">
+  <view class="column line">
+    <view class="row">
+      <view>{{tz[index]}}</view>
+      <view>
+        {{item.h}}
+        <i class="flash">{{flash ? "" : ":"}}</i>
+        {{item.m}}
+      </view>
+    </view>
+    <view class="row"><i class="icon trash"></i></view>
+  </view>
 </view>
 <view class="section" hidden="{{add ? false : true}}">
   <view class="section__title">选择时区</view>
@@ -10,4 +20,4 @@
     </view>
   </picker>
 </view>
-<button type="primary" size="mini" bindtap="onClickAdd">{{add ? "确认" : "添加"}}</button>
+<button type="primary" size="mini" plain="true" bindtap="onClickAdd">{{add ? "确认" : "添加"}}</button>

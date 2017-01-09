@@ -10,7 +10,7 @@ Page({
   tick: null,
   data: {
     clocks: [],
-    tick: null,
+    flash: false,
     add: false,
     i: 0,
     timezone: [], // all
@@ -25,10 +25,6 @@ Page({
       i: timezone.tz.indexOf(current)
     });
     this.setClocks();
-    const that = this;
-    this.data.tick = setInterval(function tick () {
-      that.setClocks();
-    }, 1000);
   },
   setClocks: function () {
     let clocks = [], tz, t;
@@ -42,7 +38,8 @@ Page({
       });
     }
     this.setData({
-      clocks: clocks
+      clocks: clocks,
+      flash: !this.data.flash
     });
   },
   onClickAdd: function () {
@@ -82,20 +79,18 @@ Page({
   },
   onShow:function(){
     // 页面显示
-    if (this.data.tick !== null) {
+    if (this.tick === null) {
       let that = this;
-      this.data.tick = setInterval(function tick () {
+      this.tick = setInterval(function tick () {
         that.setClocks();
       }, 1000);
     }
   },
   onHide:function(){
     // 页面隐藏
-    if (this.data.tick !== null) {
-      clearInterval(this.data.tick);
-      this.setData({
-        tick: null
-      });
+    if (this.tick !== null) {
+      clearInterval(this.tick);
+      this.tick = null;
     }
   },
   onUnload:function(){

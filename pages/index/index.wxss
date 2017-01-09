@@ -22,6 +22,14 @@ page {
 .clock {
     margin: 10rpx;
 }
+.digit {
+    display: inline-block;
+}
+.flash {
+    min-width: 20rpx;
+    text-align: center;
+    /*animation: heartbeat 2s infinite;*/
+}
 .badge {
     display: inline-block;
     min-width: 20rpx;
@@ -36,11 +44,6 @@ page {
     background-color: #777;
     border-radius: 10rpx;
 }
-.flash {
-    min-width: 10rpx;
-    display: inline-block;
-    animation: heartbeat 2s infinite;
-}
 .icon {
     display: inline-block;
     background-size: 48rpx 48rpx;
@@ -49,6 +52,9 @@ page {
 }
 .trash {
     background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABu0lEQVRYhe2XvUoDQRSFv4QlBFEICmoRrO1nSiufIQhWvoKVIigiluJ7xMZCLPIEVntRJCBIFAsRCxUJFhrCYrGzZvaPLDGbIObAwObM5d4zZ2Z2cwtkhKuUA+wBa0AFcICiGR7QBdrAKbCvRT6z5HWyCgCOgM0+MfPAFrAIbGRJWsgS5CpVBl6BKeABaOCvGHouOMAKsGzmFrTIW7/cMQdcpapAlbDFVVMcU/wkJd+bEeAANVep28j8oxZp2cSPA65SRWAJuAHK/ZQPiC6ggKYW8cBfXYBd4C7H4uA7cwkcB0QxEhD9nQdCNewz0ABeRiAA4Dp4iN0CVymAWk6Fz7RIxyaS3gNF/FOex3bM4d+UULGx4s8IaAPrZlwYrmVxwaG6srjnYQroaJG6Fqnjv4oBXizuyXBPFvcxTAG5YSJgImAi4N8J8MYtIIY0ATGloxaQFzJvwcgcSPtL9gWUIoLezfO0mQtaMZvr0PsKVogvcEaLhL6SMQe0CPS6Hjtu1oxAmJPAlSwuyd1o3tQtaKbwv8EtEGtY0wTskKD2F/CAbeNuCKnNqavUKnCI3+sNels84B440CLnSQHfjnVuS0diERoAAAAASUVORK5CYII=);
+}
+.action {
+    margin-right: 10rpx;
 }
 
 .section {

@@ -4,12 +4,16 @@
     <view class="row">
       <view><span class="timezone">{{tz[index]}}</span><span class="badge" wx:if="{{index === 0}}">当前时区</span></view>
       <view class="clock">
-        {{item.h}}
-        <i class="flash">:</i>
-        {{item.m}}
+        <span class="digit">{{item.h}}</span>
+        <span class="digit flash">{{flash ? ":" : ""}}</span>
+        <span class="digit">{{item.m}}</span>
       </view>
     </view>
-    <view class="row"><i class="icon trash" wx:if="{{index !== 0}}" data-index="{{index}}" bindtap="onClickDelete"></i></view>
+    <view class="row">
+      <view class="action">
+        <i class="icon trash" wx:if="{{index !== 0}}" data-index="{{index}}" bindtap="onClickDelete"></i>
+      </view>
+    </view>
   </view>
 </view>
 <view class="section" hidden="{{add ? false : true}}">

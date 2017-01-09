@@ -2,6 +2,8 @@
 const moment = require('../../utils/moment-timezone.js');
 const timezone = require('../../utils/timezone.js');
 
+const STORAGE_KEY = 'tz';
+
 function padding (x) {
   return x < 10 ? `0${x}` : `${x}`;
 }
@@ -18,13 +20,6 @@ Page({
   },
   onLoad:function(options){
     // 页面初始化 options为页面跳转所带来的参数
-    let current = moment.tz.guess();
-    this.setData({
-      timezone: timezone.tz,
-      tz: [current],
-      i: timezone.tz.indexOf(current)
-    });
-    this.setClocks();
   },
   setClocks: function () {
     let clocks = [], tz, t;
@@ -79,6 +74,21 @@ Page({
   },
   onShow:function(){
     // 页面显示
+    let current = moment.tz.guess();
+    this.setData({
+      timezone: timezone.tz,
+      tz: [current],
+      i: timezone.tz.indexOf(current)
+    });
+    try {
+      let tz = wx.getStorageSync(STORAGE_KEY);
+      if (tz) {
+        this.setData({
+          tz: this.data.tz.concat(tz)
+        })
+      }
+    } catch (e) {}
+    this.setClocks();
     if (this.tick === null) {
       let that = this;
       this.tick = setInterval(function tick () {
@@ -92,6 +102,10 @@ Page({
       clearInterval(this.tick);
       this.tick = null;
     }
+    wx.setStorage({
+      key: STORAGE_KEY,
+      data: this.data.tz.slice(1)
+    });
   },
   onUnload:function(){
     // 页面关闭

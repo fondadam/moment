@@ -1,23 +1,25 @@
 <!--pages/index/index.wxml-->
-<view wx:for="{{clocks}}">
+<view wx:for="{{clocks}}" wx:key="{{index}}">
   <view class="column line">
     <view class="row">
-      <view>{{tz[index]}}</view>
-      <view>
+      <view><span class="timezone">{{tz[index]}}</span><span class="badge" wx:if="{{index === 0}}">当前时区</span></view>
+      <view class="clock">
         {{item.h}}
-        <i class="flash">{{flash ? "" : ":"}}</i>
+        <i class="flash">:</i>
         {{item.m}}
       </view>
     </view>
-    <view class="row"><i class="icon trash"></i></view>
+    <view class="row"><i class="icon trash" wx:if="{{index !== 0}}" data-index="{{index}}" bindtap="onClickDelete"></i></view>
   </view>
 </view>
 <view class="section" hidden="{{add ? false : true}}">
-  <view class="section__title">选择时区</view>
-  <picker bindchange="onSelect" value="{{index}}" range="{{timezone}}">
+  <picker bindchange="onSelect" value="{{i}}" range="{{timezone}}">
     <view class="picker">
-      当前选择：{{timezone[index]}}
+      选择时区：{{timezone[i]}}
     </view>
   </picker>
 </view>
-<button type="primary" size="mini" plain="true" bindtap="onClickAdd">{{add ? "确认" : "添加"}}</button>
+<view class="footer">
+  <button type="primary" size="mini" bindtap="onClickAdd">{{add ? "确认" : "添加"}}</button>
+  <button type="default" size="mini" bindtap="onClickCancel" hidden="{{add ? false : true}}">取消</button>
+</view>

@@ -11,17 +11,18 @@ Page({
   data: {
     clocks: [],
     tick: null,
-    flash: false,
     add: false,
-    index: 0,
+    i: 0,
     timezone: [], // all
-    tz: ['Asia/Shanghai']
+    tz: []
   },
   onLoad:function(options){
     // 页面初始化 options为页面跳转所带来的参数
+    let current = moment.tz.guess();
     this.setData({
       timezone: timezone.tz,
-      index: timezone.tz.indexOf('Asia/Shanghai')
+      tz: [current],
+      i: timezone.tz.indexOf(current)
     });
     this.setClocks();
     const that = this;
@@ -41,8 +42,7 @@ Page({
       });
     }
     this.setData({
-      clocks: clocks,
-      flash: !this.data.flash
+      clocks: clocks
     });
   },
   onClickAdd: function () {
@@ -51,16 +51,30 @@ Page({
         add: true
       });
     } else {
-      this.data.tz.push(this.data.timezone[this.data.index]);
+      this.data.tz.push(this.data.timezone[this.data.i]);
       this.setData({
         add: false,
         tz: this.data.tz
       });
+      this.setClocks();
     }
+  },
+  onClickCancel: function () {
+    this.setData({
+      add: false
+    });
+  },
+  onClickDelete: function (e) {
+    let index = parseInt(e.target.dataset.index, 10);
+    this.data.tz.splice(index, 1);
+    this.setData({
+      tz: this.data.tz
+    })
+    this.setClocks();
   },
   onSelect: function (e) {
     this.setData({
-      index: e.detail.value
+      i: e.detail.value
     });
   },
   onReady:function(){
@@ -68,6 +82,12 @@ Page({
   },
   onShow:function(){
     // 页面显示
+    if (this.data.tick !== null) {
+      let that = this;
+      this.data.tick = setInterval(function tick () {
+        that.setClocks();
+      }, 1000);
+    }
   },
   onHide:function(){
     // 页面隐藏
